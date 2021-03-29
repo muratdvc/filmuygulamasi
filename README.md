@@ -4,7 +4,7 @@
 
 1- Download the source code to your computer.
 
-2-Run the commands below in terminal.
+2- Run the commands below in terminal.
 
 **Windows** 
 <br /> cd Desktop/filmuygulamasi
