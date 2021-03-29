@@ -7,8 +7,8 @@ In order to compile and run:
 2-Run the commands below in terminal.
 
 **Wındows** 
-cd Desktop/filmuygulamasi
-mvnw package
+<br /> cd Desktop/filmuygulamasi
+<br /> mvnw package
 cd target
 java -jar filmuygulamasi-0.0.1-SNAPSHOT.jar
 
