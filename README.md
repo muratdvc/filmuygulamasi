@@ -1,6 +1,6 @@
 # filmuygulamasi
 
-In order to compile and run:
+## In order to compile and run:
 
 1- Download the source code to your computer.
 
@@ -9,13 +9,13 @@ In order to compile and run:
 **Wındows** 
 <br /> cd Desktop/filmuygulamasi
 <br /> mvnw package
-cd target
-java -jar filmuygulamasi-0.0.1-SNAPSHOT.jar
+<br /> cd target
+<br /> java -jar filmuygulamasi-0.0.1-SNAPSHOT.jar
 
 **MacOS**
-cd filmuygulamasi
-./mvnw package
-cd target
-java -jar filmuygulamasi-0.0.1-SNAPSHOT.jar
+<br /> cd filmuygulamasi
+<br /> ./mvnw package
+<br /> cd target
+<br /> java -jar filmuygulamasi-0.0.1-SNAPSHOT.jar
 
 3- Go to http://localhost:8080 in your browser.
