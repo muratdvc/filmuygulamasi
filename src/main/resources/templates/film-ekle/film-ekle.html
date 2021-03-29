@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Film Ekle</title>
+</head>
+
+<body>
+
+<div class="container" >
+
+    <h3 style="padding-top: 80px; text-align: center;">Filmi Ekle</h3>
+    <hr>
+
+    <div class="row">
+        <div class="col-6">
+            <form th:action="@{/film/save}"
+              th:object="${film}" method="POST">
+                    <input type="text" th:field="*{isim}"
+                           class="form-control mb-4" placeholder="Film ismi" required>
+
+                    <input type="date" th:value="${{yayinYili}}" th:field="*{yayinYili}"
+                           class="form-control mb-4"
+                           placeholder="Last name"
+                           min="1960-01-01" max="2021-12-31">
+
+                    <input type="text" th:field="*{tur}"
+                           class="form-control mb-4" placeholder="Film türü">
+
+                    <input type="text" th:field="*{medya}"
+                           class="form-control mb-4" placeholder="Medya grubu">
+
+                    <textarea type="text" th:field="*{aciklama}"
+                              class="form-control mb-4" rows="3" placeholder="Film hakkında"></textarea>
+                <div>
+                    <button type="submit" class="btn btn-info">Kaydet</button>
+                    <a th:href="@{/film/list}" class="btn btn-danger" style="right: 15px; position: absolute;">Vazgeç</a>
+                </div>
+            </form>
+            <hr>
+            <div th:object="${param}">
+                <a class="btn btn-primary" th:href="@{/film/${film.isim}(filmId=${param.filmId})}">Geri Dön</a>
+            </div>
+        </div>
+    <div>
+
+</div>
+</body>
+
+</html>

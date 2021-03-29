@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- header -->
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" th:href="@{/film/list}">Film Koleksiyonu</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <form class="form-inline my-2 mx-md-auto" th:action="@{/film/search}" method="get" >
+                <input class="form-control mr-sm-2" type="search" placeholder="Film ara..." aria-label="Search" name="filmName">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ara</button>
+            </form>
+                <br>
+                <!--            logout-->
+                <form action="#" th:action="@{/logout}" method="POST" class="form-inline my-2 my-lg-0">
+                    <input type="submit" value="Çıkış Yap" class="btn btn-outline-primary mr-sm-2" />
+                </form>
+            </div>
+        </nav>
+    </div>
+    <!--        Header-->
+
+    <!-- Page Content -->
+    <div class="container">
+<!--        Film Detaylari-->
+        <form th:action="@{/film/update}" th:object="${film}" method="POST" >
+            <h1 class="my-4" th:text="${film.isim}"></h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="img-fluid" th:src="@{/images/film.jpg}" style="width: 80%;" alt="">
+                </div>
+                <div class="col-md-6">
+                    <h3 class="my-3">Hakkında</h3>
+                    <p th:text="${film.aciklama}"></p>
+                    <h3 >Tür: <small style="display: inline-block" th:text=" ${film.tur}"></small></h3>
+                    <h3 style="display: inline-block;">Medya: <small style="display: inline-block" th:text=" ${film.medya}"></small></h3>
+                    <h3>Çıkış Tarihi: <small th:text="${#dates.format(film.yayinYili, 'dd-MMM-yyyy')}"></small></h3>
+                    <h3>Dil Seçenekleri </h3>
+                    <ul th:each="dil : ${film.dilSecenekleri}">
+                        <li th:text="${dil.dil}" ></li>
+                    </ul>
+                    <h2 class="my-3">Oyuncular</h2>
+                    <ul th:each="oyuncu : ${film.oyuncular}">
+                        <li th:text="${oyuncu.tamIsim}" style="float: left;  margin: 0 20px;"></li>
+                    </ul>
+                </div>
+            </div>
+            <!--        Film Detaylari-->
+
+            <!--    Film Duzenle / Sil / Oyuncu duzenle-->
+            <div class="row">
+                <div class="col-5 btn-group btn-group-justified" style="margin: 20px 0 20px" th:object="${param}">
+                        <a th:href="@{/film/showFormUpdate(filmId=${param.filmId})}" class="buttons btn btn-secondary" style="margin: 0 auto;">
+                            Duzenle
+                        </a>
+                        <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/film/deleteFilmBy(filmId=${param.filmId})}"
+                           class="buttons btn btn-danger"
+                           onclick="if (!(confirm('Bu filmi silmek istiyor musun?'))) return false">
+                            Sil
+                        </a>
+                        <a th:href="@{/film/showFormUpdateOyuncu(filmId=${param.filmId})}" class="buttons btn btn-secondary" style="margin: 0 auto;">
+                            Oyuncuları Düzenle
+                        </a>
+                </div>
+            </div>
+            <!--            Film Duzenle / Sil / Oyuncu duzenle-->
+
+        </form>
+
+        <!-- Benzer Filmler-->
+        <h3 class="my-4">Benzer Filmler</h3>
+        <div class="row text-center" th:object="${filmOnerisi}">
+            <div class="col-md-3 col-sm-6 mb-4" th:each="film, i : ${filmOnerisi}">
+                <a th:href="@{/film/incele(filmId=${film.id})}">
+                    <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+                <a class="" th:text="${film.isim}" th:href="@{/film/incele(filmId=${film.id})}" style="color: black;"></a>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</body>
+</html>

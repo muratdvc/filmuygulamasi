@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Film Ekle</title>
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="container" >
+
+        <h3 style="padding-top: 80px; text-align: center">Oyuncu Ekle</h3>
+        <hr>
+
+        <div class="row" th:object="${film}">
+            <div class="col-4" th:object="${film}">
+                <input type="text" th:value="${film.isim}"
+                       class="form-control mb-4 bold" placeholder="Film ismi">
+
+                <input type="date" th:value="${{film.yayinYili}}"
+                       class="form-control mb-4 bold"
+                       placeholder="Last name"
+                       min="1960-01-01" max="2021-12-31">
+
+                <input type="text" th:value="${film.tur}"
+                       class="form-control mb-4 bold" placeholder="Film türü">
+
+                <input type="text" th:value="${film.medya}"
+                       class="form-control mb-4 bold" placeholder="Medya grubu">
+
+                <textarea type="text" th:value="${film.isim}"
+                          class="form-control mb-4 bold" rows="3" placeholder="Film hakkında"></textarea>
+            </div>
+
+            <form
+                    th:action="@{/film/saveOyuncular(filmId=${film.id})}"
+                    th:object="${oyuncuWrapper}"
+                    method="POST"
+                    class="col-4">
+                <div class="row">
+                    <div class="col-12" th:each="oyuncu, i : *{oyuncular}">
+                        <input type="text"  th:field="*{oyuncular[__${i.index}__].tamIsim}"
+                               class="form-control mb-4" placeholder="Oyuncu ismi">
+
+                        <input type="text"  th:field="*{oyuncular[__${i.index}__].rol}"
+                               class="form-control mb-4" placeholder="Rol">
+                        <hr style="  border: 2px solid #333536;
+                                        border-radius: 1px;">
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-info">Kaydet</button>
+                    <a th:href="@{/film/list}" class="btn btn-danger" style="right: 15px; position: absolute;">Vazgeç</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

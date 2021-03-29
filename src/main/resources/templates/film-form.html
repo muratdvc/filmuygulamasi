@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Filmi Duzenle</title>
+</head>
+
+<body>
+
+<div class="container" >
+
+    <h3 style="padding-top: 80px">Filmi Duzenle</h3>
+    <hr>
+
+    <form th:action="@{/film/update}"
+          th:object="${film}" method="POST">
+
+<!--         filmın update edebilmesi icin ıd gerekli hidden input ile hallediyoryz -->
+        <input type="hidden" th:field="*{id}"/>
+
+        <input type="text" th:field="*{isim}"
+               class="form-control mb-4 col-6" placeholder="Film ismi" required>
+
+        <input type="date"
+               th:field="*{yayinYili}"
+               class="form-control mb-4 col-6"
+               placeholder="Yayin yili"
+               min="1960-01-01" max="2021-12-31" required>
+
+        <input type="text" th:field="*{tur}"
+               class="form-control mb-4 col-6" placeholder="Film türü" required>
+
+        <input type="text" th:field="*{medya}"
+               class="form-control mb-4 col-6" placeholder="Medya">
+
+        <textarea type="text" th:field="*{aciklama}"
+                  class="form-control mb-4 col-6" rows="3" placeholder="Aciklama"></textarea>
+
+        <button type="submit" class="btn btn-info col-2">Kaydet</button>
+
+    </form>
+    <hr>
+    <div class="container" th:object="${param}">
+        <a class="btn btn-primary" th:href="@{/film/incele(filmId=${param.filmId})}">Geri Dön</a>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/6369d46fd0.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <title>Oyuncu Düzenle</title>
+</head>
+
+<body>
+
+    <div class="container" th:object="${oyuncu}">
+
+        <h3 style="padding-top: 80px; text-align: center;">Oyuncu Ekle</h3>
+        <hr>
+
+        <form th:action="@{/film/saveOyuncu(filmId=${param.filmId})}"
+              th:object="${oyuncuWrapper}" method="POST" >
+            <div  th:each="oyuncu, i : ${oyuncuWrapper.oyuncular}" class="col-6 offset-3">
+                <input type="hidden"  th:value="${oyuncu.getId()}" th:name="|oyuncular[${i.index}].id|">
+                <input
+                        type="text"
+                        th:value="${oyuncu.tamIsim}" th:name="|oyuncular[${i.index}].tamIsim|"
+                        class="form-control mb-4"
+                        placeholder="İsim" required>
+                <input
+                        type="text"
+                        th:value="${oyuncu.rol}" th:name="|oyuncular[${i.index}].rol|"
+                        class="form-control mb-4 "
+                        placeholder="Rol">
+                <hr style="  border: 2px solid #333536;
+                                            border-radius: 1px;">
+            </div>
+            <div class="col-6 offset-3">
+                <button type="submit" class="btn btn-info">Kaydet</button>
+            </div>
+        </form>
+        <hr>
+        <div th:object="${param}" class="col-6 offset-3"  style="padding-bottom: 80px;">
+            <a class="btn btn-primary" th:href="@{/film/incele(filmId=${param.filmId})}">Geri Dön</a>
+        </div>
+    </div>
+</body>
+</html>
