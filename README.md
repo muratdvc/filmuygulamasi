@@ -6,7 +6,7 @@
 
 2-Run the commands below in terminal.
 
-**Wındows** 
+**Windows** 
 <br /> cd Desktop/filmuygulamasi
 <br /> mvnw package
 <br /> cd target
